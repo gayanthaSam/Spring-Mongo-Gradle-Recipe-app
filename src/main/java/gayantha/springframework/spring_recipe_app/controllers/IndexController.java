@@ -1,33 +1,23 @@
 package gayantha.springframework.spring_recipe_app.controllers;
 
-import java.util.Optional;
-
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import gayantha.springframework.spring_recipe_app.domain.Category;
-import gayantha.springframework.spring_recipe_app.domain.UnitOfMeasure;
-import gayantha.springframework.spring_recipe_app.repositories.CategoryRepository;
-import gayantha.springframework.spring_recipe_app.repositories.UnitOfMeasureRepository;
+import gayantha.springframework.spring_recipe_app.services.RecipeService;
 
 @Controller
 public class IndexController {
 
-    private final CategoryRepository categoryRepository;
-    private final UnitOfMeasureRepository unitOfMeasureRepository;
+    private final RecipeService recipeService;
 
-    public IndexController(CategoryRepository categoryRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
-        this.categoryRepository = categoryRepository;
-        this.unitOfMeasureRepository = unitOfMeasureRepository;
+    public IndexController(RecipeService recipeService) {
+        this.recipeService = recipeService;
     }
 
     @RequestMapping({ "", "/", "/index" })
-    public String getIndexPage() {
-
-        Optional<Category> cateOptional = categoryRepository.findByDescription("American");
-        Optional<UnitOfMeasure> unitOfMeasureOptional = unitOfMeasureRepository.findByUom("Teaspoon");
-        System.out.println("Cat id is: " + cateOptional.get().getId());
-        System.out.println("UOM id id: " + unitOfMeasureOptional.get().getId());
+    public String getIndexPage(Model model) {
+        model.addAttribute("recipes", recipeService.getRecipes());
         return "index";
     }
 }

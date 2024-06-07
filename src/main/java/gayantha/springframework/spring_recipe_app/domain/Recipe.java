@@ -1,5 +1,6 @@
 package gayantha.springframework.spring_recipe_app.domain;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
@@ -28,6 +29,8 @@ public class Recipe {
     private Integer cookTime;
     private Integer servings;
     private String url;
+
+    @Lob
     private String directions;
 
     @Lob
@@ -37,14 +40,14 @@ public class Recipe {
     private Notes notes;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
-    private Set<Ingredient> ingredients;
+    private Set<Ingredient> ingredients = new HashSet<>();
 
     @Enumerated(value = EnumType.STRING)
     private Difficulty difficulty;
 
     @ManyToMany
     @JoinTable(name = "recipe_category", joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Set<Category> categories;
+    private Set<Category> categories = new HashSet<>();
 
     public Difficulty getDifficulty() {
         return difficulty;
