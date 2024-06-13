@@ -6,6 +6,9 @@ import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
+import gayantha.springframework.spring_recipe_app.commands.RecipeCommand;
+import gayantha.springframework.spring_recipe_app.converters.RecipeCommandToRecipe;
+import gayantha.springframework.spring_recipe_app.converters.RecipeToRecipeCommand;
 import gayantha.springframework.spring_recipe_app.domain.Recipe;
 import gayantha.springframework.spring_recipe_app.repositories.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -15,9 +18,14 @@ import lombok.extern.slf4j.Slf4j;
 public class RecipeServiceImpl implements RecipeService {
 
     private final RecipeRepository recipeRepository;
+    private final RecipeCommandToRecipe recipeCommandToRecipe;
+    private final RecipeToRecipeCommand recipeToRecipeCommand;
 
-    public RecipeServiceImpl(RecipeRepository recipeRepository) {
+    public RecipeServiceImpl(RecipeRepository recipeRepository, RecipeCommandToRecipe recipeCommandToRecipe,
+            RecipeToRecipeCommand recipeToRecipeCommand) {
         this.recipeRepository = recipeRepository;
+        this.recipeCommandToRecipe = recipeCommandToRecipe;
+        this.recipeToRecipeCommand = recipeToRecipeCommand;
     }
 
     @Override
@@ -36,6 +44,16 @@ public class RecipeServiceImpl implements RecipeService {
         }
         return recipeOptional.get();
 
+    }
+
+    @Override
+    public RecipeCommand saveRecipeCommand(RecipeCommand command) {
+        Recipe detachedRecipe = recipeCommandToRecipe.convert(command);
+        Recipe savedRecipe = recipeRepository.save(detachedRecipe);
+
+        log.debug("Saved RecipeId: " + savedRecipe.getId());
+
+        return recipeToRecipeCommand.convert(savedRecipe);
     }
 
 }

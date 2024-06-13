@@ -17,6 +17,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import gayantha.springframework.spring_recipe_app.converters.RecipeCommandToRecipe;
+import gayantha.springframework.spring_recipe_app.converters.RecipeToRecipeCommand;
 import gayantha.springframework.spring_recipe_app.domain.Recipe;
 import gayantha.springframework.spring_recipe_app.repositories.RecipeRepository;
 
@@ -27,17 +29,23 @@ public class RecipeServiceImplTest {
     @Mock
     RecipeRepository recipeRepository;
 
+    @Mock
+    RecipeToRecipeCommand recipeToRecipeCommand;
+
+    @Mock
+    RecipeCommandToRecipe recipeCommandToRecipe;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        recipeService = new RecipeServiceImpl(recipeRepository);
+        recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
     }
 
     @Test
     void testGetRecipes() {
 
         Recipe recipe = new Recipe();
-        HashSet recipesData = new HashSet<>();
+        HashSet<Recipe> recipesData = new HashSet<>();
         recipesData.add(recipe);
 
         when(recipeRepository.findAll()).thenReturn(recipesData);
