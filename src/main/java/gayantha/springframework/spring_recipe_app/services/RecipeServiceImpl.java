@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import gayantha.springframework.spring_recipe_app.commands.RecipeCommand;
 import gayantha.springframework.spring_recipe_app.converters.RecipeCommandToRecipe;
@@ -47,6 +48,13 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
+    @Transactional
+    public RecipeCommand findCommandById(Long id) {
+        return recipeToRecipeCommand.convert(findById(id));
+    }
+
+    @Override
+    @Transactional
     public RecipeCommand saveRecipeCommand(RecipeCommand command) {
         Recipe detachedRecipe = recipeCommandToRecipe.convert(command);
         Recipe savedRecipe = recipeRepository.save(detachedRecipe);

@@ -2,6 +2,7 @@ package gayantha.springframework.spring_recipe_app.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -17,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import gayantha.springframework.spring_recipe_app.commands.RecipeCommand;
 import gayantha.springframework.spring_recipe_app.converters.RecipeCommandToRecipe;
 import gayantha.springframework.spring_recipe_app.converters.RecipeToRecipeCommand;
 import gayantha.springframework.spring_recipe_app.domain.Recipe;
@@ -71,6 +73,27 @@ public class RecipeServiceImplTest {
         verify(recipeRepository, times(1)).findById(anyLong());
         verify(recipeRepository, never()).findAll();
 
+    }
+
+    @Test
+    public void getRecipeCoomandByIdTest() throws Exception {
+        // Given
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
+        Optional<Recipe> recipeOptional = Optional.of(recipe);
+
+        RecipeCommand recipeCommand = new RecipeCommand();
+        recipeCommand.setId(1L);
+
+        // When
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+        when(recipeToRecipeCommand.convert(any())).thenReturn(recipeCommand);
+        RecipeCommand commandById = recipeService.findCommandById(1L);
+
+        // Thens
+        assertNotNull(commandById);
+        verify(recipeRepository, times(1)).findById(anyLong());
+        verify(recipeRepository, never()).findAll();
     }
 
 }
