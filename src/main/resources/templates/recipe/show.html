@@ -36,30 +36,45 @@
                     <hr/>
                     <div class="lc-block">
                         <div class="row">
-                            <div class="col-6">
-                                <div class="lc-block mb-4">
-                                    <p editable="inline" class=" m-0" style="font-size:40px;" th:text="${(recipe.prepTime + ' Min(s)' )}">3+</p>
-                                    <p editable="inline" class="small text-uppercase">Preperation Time</p>
-                                </div><!-- /lc-block -->
-                            </div>
-                            <div class="col-6">
-                                <div class="lc-block mb-4">
-                                    <p editable="inline" class=" m-0" style="font-size:40px;" th:text="${(recipe.cookTime + ' Min(s)' )}">48+</p>
-                                    <p editable="inline" class="small text-uppercase">Cooking Time</p>
+                            <div class="col-9">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="lc-block mb-4">
+                                            <p editable="inline" class=" m-0" style="font-size:40px;" th:text="${(recipe.prepTime + ' Min(s)' )}">3+</p>
+                                            <p editable="inline" class="small text-uppercase">Preperation Time</p>
+                                        </div><!-- /lc-block -->
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="lc-block mb-4">
+                                            <p editable="inline" class=" m-0" style="font-size:40px;" th:text="${(recipe.cookTime + ' Min(s)' )}">48+</p>
+                                            <p editable="inline" class="small text-uppercase">Cooking Time</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="lc-block mb-4">
+                                            <p editable="inline" class=" m-0" style="font-size:40px;" th:text="${recipe.difficulty}">33+</p>
+                                            <p editable="inline" class="small text-uppercase">Difficulty</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="lc-block mb-4">
+                                            <p editable="inline" class=" m-0" style="font-size:40px;" th:text="${recipe.servings}">4800+</p>
+                                            <p editable="inline" class="small text-uppercase">Servings</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="lc-block mb-4">
-                                    <p editable="inline" class=" m-0" style="font-size:40px;" th:text="${recipe.difficulty}">33+</p>
-                                    <p editable="inline" class="small text-uppercase">Difficulty</p>
+                            <div class="col-3">
+                                <div class="mb-4 container d-flex justify-content-center align-items-center">
+                                    <img src="../../static/images/guacamole400x400WithX.jpg"
+                                        th:src="@{/images/guacamole400x400WithX.jpg}"
+                                        width="200" height="200">
                                 </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="lc-block mb-4">
-                                    <p editable="inline" class=" m-0" style="font-size:40px;" th:text="${recipe.servings}">4800+</p>
-                                    <p editable="inline" class="small text-uppercase">Servings</p>
+                                <div class="container d-flex justify-content-center align-items-center">
+                                    <a class="btn btn-outline-success btn-lg" href="#"
+                                   th:href="@{'/recipe/' + ${recipe.id} + '/image'}" role="button">Change Image</a>
                                 </div>
                             </div>
                         </div>

@@ -2,6 +2,7 @@
   "java.configuration.updateBuildConfiguration": "interactive",
   "java.completion.favoriteStaticMembers": [
 
+    
     "org.junit.Assert.*",
     "org.junit.Assume.*",
     "org.junit.jupiter.api.Assertions.*",
