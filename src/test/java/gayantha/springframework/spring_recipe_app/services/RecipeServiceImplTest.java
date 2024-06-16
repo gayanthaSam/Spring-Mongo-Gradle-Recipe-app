@@ -21,6 +21,7 @@ import org.mockito.MockitoAnnotations;
 import gayantha.springframework.spring_recipe_app.commands.RecipeCommand;
 import gayantha.springframework.spring_recipe_app.converters.RecipeCommandToRecipe;
 import gayantha.springframework.spring_recipe_app.converters.RecipeToRecipeCommand;
+import gayantha.springframework.spring_recipe_app.domain.Ingredient;
 import gayantha.springframework.spring_recipe_app.domain.Recipe;
 import gayantha.springframework.spring_recipe_app.repositories.RecipeRepository;
 
@@ -95,5 +96,4 @@ public class RecipeServiceImplTest {
         verify(recipeRepository, times(1)).findById(anyLong());
         verify(recipeRepository, never()).findAll();
     }
-
 }
