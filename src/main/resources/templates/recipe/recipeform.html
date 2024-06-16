@@ -65,10 +65,10 @@
                             </div>
                             <div class="mb-4">
                                 <label class="form-label">Difficulty:</label>
-                                <select class="form-select form-select-lg" >
-                                    <option>Easy</option>
-                                    <option>Medium</option>
-                                    <option>Hard</option>
+                                <select class="form-select form-select-lg" th:field="*{difficulty}" >
+                                    <option th:each="difficultyValue : ${T(gayantha.springframework.spring_recipe_app.domain.Difficulty).values()}"
+                                            th:value="${difficultyValue.name()}"
+                                            th:text="${difficultyValue.name()}">Easy</option>
                                   </select>
                             </div>
                             <div class="form-floating mb-4">
