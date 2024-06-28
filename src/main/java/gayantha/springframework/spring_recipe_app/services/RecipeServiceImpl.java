@@ -11,6 +11,7 @@ import gayantha.springframework.spring_recipe_app.commands.RecipeCommand;
 import gayantha.springframework.spring_recipe_app.converters.RecipeCommandToRecipe;
 import gayantha.springframework.spring_recipe_app.converters.RecipeToRecipeCommand;
 import gayantha.springframework.spring_recipe_app.domain.Recipe;
+import gayantha.springframework.spring_recipe_app.exceptions.NotFoundException;
 import gayantha.springframework.spring_recipe_app.repositories.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,7 +42,7 @@ public class RecipeServiceImpl implements RecipeService {
     public Recipe findById(Long id) {
         Optional<Recipe> recipeOptional = recipeRepository.findById(id);
         if (!recipeOptional.isPresent()) {
-            throw new RuntimeException("Recipe not found");
+            throw new NotFoundException("Recipe not found");
         }
         return recipeOptional.get();
 

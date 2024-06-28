@@ -2,6 +2,7 @@ package gayantha.springframework.spring_recipe_app.controllers;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -21,6 +22,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import gayantha.springframework.spring_recipe_app.commands.RecipeCommand;
 import gayantha.springframework.spring_recipe_app.domain.Recipe;
+import gayantha.springframework.spring_recipe_app.exceptions.NotFoundException;
 import gayantha.springframework.spring_recipe_app.services.RecipeService;
 
 public class RecipeControllerTest {
@@ -80,5 +82,15 @@ public class RecipeControllerTest {
                 .andExpect(view().name("redirect:/"));
 
         verify(recipeService, times(1)).deleteById(anyLong());
+    }
+
+    @Test
+    public void testGetRecipeNotFound() throws Exception {
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
+
+        when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+        mockMvc.perform(get("/recipe/1/show"))
+                .andExpect(status().isNotFound());
     }
 }
