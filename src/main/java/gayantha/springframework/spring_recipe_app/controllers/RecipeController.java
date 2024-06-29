@@ -1,25 +1,23 @@
 package gayantha.springframework.spring_recipe_app.controllers;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.servlet.ModelAndView;
-
 import gayantha.springframework.spring_recipe_app.commands.RecipeCommand;
-import gayantha.springframework.spring_recipe_app.exceptions.NotFoundException;
 import gayantha.springframework.spring_recipe_app.services.RecipeService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
 public class RecipeController {
+
+    private static final String RECIPE_RECIPE_FORM_URL = "/recipe/recipeform";
 
     private final RecipeService recipeService;
 
@@ -36,17 +34,24 @@ public class RecipeController {
     @RequestMapping("/recipe/new")
     public String newRecipe(Model model) {
         model.addAttribute("recipe", new RecipeCommand());
-        return "/recipe/recipeform";
+        return RECIPE_RECIPE_FORM_URL;
     }
 
     @RequestMapping("recipe/{id}/update")
     public String updateRecipe(@PathVariable String id, Model model) {
         model.addAttribute("recipe", recipeService.findCommandById(Long.valueOf(id)));
-        return "/recipe/recipeform";
+        return RECIPE_RECIPE_FORM_URL;
     }
 
     @PostMapping("/recipe/save")
-    public String saveOrUpdate(@ModelAttribute RecipeCommand command) {
+    public String saveOrUpdate(@Validated @ModelAttribute("recipe") RecipeCommand command,
+            BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            bindingResult.getAllErrors().forEach(objectError -> {
+                log.debug(objectError.toString());
+            });
+            return RECIPE_RECIPE_FORM_URL;
+        }
         RecipeCommand savedRecipeCommand = recipeService.saveRecipeCommand(command);
         return "redirect:/recipe/" + savedRecipeCommand.getId() + "/show";
     }
@@ -57,17 +62,6 @@ public class RecipeController {
         log.debug("Deleting id: " + id);
         recipeService.deleteById(Long.valueOf(id));
         return "redirect:/";
-    }
-
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(NotFoundException.class)
-    public ModelAndView handleNotFound(Exception exception) {
-        log.error("Handling not found exception");
-        log.error(exception.getMessage());
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("404error");
-        modelAndView.addObject("exception", exception);
-        return modelAndView;
     }
 
 }

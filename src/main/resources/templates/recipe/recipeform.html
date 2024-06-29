@@ -19,6 +19,9 @@
             </div>
             <div class="row align-items-md-center mb-10">
                 <form  th:object="${recipe}" th:action="@{/recipe/save}"  method="post">
+                    <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                        <p>Please Correct Errors Below</p>
+                    </div>
                     <input type="hidden" th:field="*{id}"/>
                     <div class="col-lg-12 pr-10">
                         <div class="lc-block mb-4">
@@ -30,11 +33,17 @@
                         </div>
                         <hr/>
                         <div class="lc-bloc">
-                            <div class="mb-4">
+                            <div class="mb-4 ">                                
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="description" placeholder="description" th:field="*{description}"/>
+                                    <input type="text" th:class="${#fields.hasErrors('description')}
+                                    ? 'form-control is-invalid' : 'form-control is-valid'"class="form-control" id="description" placeholder="description" th:field="*{description}"/>
                                     <label for="description">Recipe Description</label>
                                 </div>
+                                <div class="" th:if="${#fields.hasErrors('description')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('description')}" th:text="${err}"/>
+                                        </ul>
+                                  </div>
                             </div>                            
                             <div class="mb-4">
                                 <label class="form-label">Categories:</label>
