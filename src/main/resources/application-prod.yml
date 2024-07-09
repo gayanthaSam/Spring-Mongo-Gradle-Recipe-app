@@ -3,6 +3,7 @@ spring:
     url: jdbc:mysql://0.0.0.0:3309/gaya_prod
     username: gaya_prod_user
     password: gaya
+    platform: mysql
   jpa:
     hibernate:
       ddl-auto: validate
