@@ -2,6 +2,6 @@
 
 [![codecov](https://codecov.io/github/gayanthaSam/spring-recipe-app/graph/badge.svg?token=7B2MFQEWHD)](https://codecov.io/github/gayanthaSam/spring-recipe-app)
 
-# spring-recipe-app
+# Spring-Mongo-Gradle-Recipe-app
 
-Recipe app using spring boot
+Recipe app using spring boot and Mongo DB
