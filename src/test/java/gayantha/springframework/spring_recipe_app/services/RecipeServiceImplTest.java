@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -63,15 +64,15 @@ public class RecipeServiceImplTest {
     @Test
     void testGetRecipesByIdTest() {
         Recipe recipe = new Recipe();
-        recipe.setId(1l);
+        recipe.setId("1l");
         Optional<Recipe> recipeOptional = Optional.of(recipe);
 
-        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+        when(recipeRepository.findById(anyString())).thenReturn(recipeOptional);
 
-        Recipe recipeReturned = recipeService.findById(1L);
+        Recipe recipeReturned = recipeService.findById("1L");
 
         assertNotNull(recipeReturned);
-        verify(recipeRepository, times(1)).findById(anyLong());
+        verify(recipeRepository, times(1)).findById(anyString());
         verify(recipeRepository, never()).findAll();
 
     }
@@ -80,20 +81,20 @@ public class RecipeServiceImplTest {
     public void getRecipeCoomandByIdTest() throws Exception {
         // Given
         Recipe recipe = new Recipe();
-        recipe.setId(1L);
+        recipe.setId("1L");
         Optional<Recipe> recipeOptional = Optional.of(recipe);
 
         RecipeCommand recipeCommand = new RecipeCommand();
-        recipeCommand.setId(1L);
+        recipeCommand.setId("1L");
 
         // When
-        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+        when(recipeRepository.findById(anyString())).thenReturn(recipeOptional);
         when(recipeToRecipeCommand.convert(any())).thenReturn(recipeCommand);
-        RecipeCommand commandById = recipeService.findCommandById(1L);
+        RecipeCommand commandById = recipeService.findCommandById("1L");
 
         // Thens
         assertNotNull(commandById);
-        verify(recipeRepository, times(1)).findById(anyLong());
+        verify(recipeRepository, times(1)).findById(anyString());
         verify(recipeRepository, never()).findAll();
     }
 }

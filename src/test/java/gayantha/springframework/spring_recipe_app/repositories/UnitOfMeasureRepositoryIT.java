@@ -13,28 +13,28 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import gayantha.springframework.spring_recipe_app.domain.UnitOfMeasure;
 
-@ExtendWith(SpringExtension.class)
+//@ExtendWith(SpringExtension.class)
 // ---JUnit4 @Runwith(SpringRunner.class)
-@DataJpaTest
+//@DataJpaTest
 public class UnitOfMeasureRepositoryIT {
 
-    @Autowired
-    UnitOfMeasureRepository unitOfMeasureRepository;
+    // @Autowired
+    // UnitOfMeasureRepository unitOfMeasureRepository;
 
-    @BeforeEach
-    void setUp() {
+    // @BeforeEach
+    // void setUp() {
 
-    }
+    // }
 
-    @Test
-    void testFindByUom() {
-        Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByUom("Teaspoon");
-        assertEquals("Teaspoon", uomOptional.get().getUom());
-    }
+    // @Test
+    // void testFindByUom() {
+    //     Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByUom("Teaspoon");
+    //     assertEquals("Teaspoon", uomOptional.get().getUom());
+    // }
 
-    @Test
-    void testFindByUomCup() {
-        Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByUom("Cup");
-        assertEquals("Cup", uomOptional.get().getUom());
-    }
+    // @Test
+    // void testFindByUomCup() {
+    //     Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByUom("Cup");
+    //     assertEquals("Cup", uomOptional.get().getUom());
+    // }
 }

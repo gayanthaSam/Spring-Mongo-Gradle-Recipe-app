@@ -11,7 +11,7 @@ import gayantha.springframework.spring_recipe_app.domain.Notes;
 
 public class NotesCommandToNotesTest {
 
-    public static final Long ID_VALUE = Long.valueOf(1L);
+    public static final String ID_VALUE = "1";
     public static final String RECIPE_NOTES = "Notes";
 
     NotesCommandToNotes converter;

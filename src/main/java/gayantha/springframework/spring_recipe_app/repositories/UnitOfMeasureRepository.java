@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import gayantha.springframework.spring_recipe_app.domain.UnitOfMeasure;
 
-public interface UnitOfMeasureRepository extends CrudRepository<UnitOfMeasure, Long> {
+public interface UnitOfMeasureRepository extends CrudRepository<UnitOfMeasure, String> {
 
     Optional<UnitOfMeasure> findByUom(String uom);
 }

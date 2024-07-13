@@ -13,7 +13,7 @@ import gayantha.springframework.spring_recipe_app.domain.UnitOfMeasure;
 public class UnitOfMeasureToUnitOfMeasureCommandTest {
 
     public static final String DESCRIPTION = "description";
-    public static final Long LONG_VALUE = Long.valueOf(1L);
+    public static final String LONG_VALUE = "1L";
 
     UnitOfMeasureToUnitOfMeasureCommand converter;
 

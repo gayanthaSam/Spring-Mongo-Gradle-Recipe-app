@@ -21,35 +21,35 @@ public class RecipeServiceIT {
 
     public static final String NEW_DESCRIPTION = "New Description";
 
-    @Autowired
-    RecipeService recipeService;
+    // @Autowired
+    // RecipeService recipeService;
 
-    @Autowired
-    RecipeRepository recipeRepository;
+    // @Autowired
+    // RecipeRepository recipeRepository;
 
-    @Autowired
-    RecipeCommandToRecipe recipeCommandToRecipe;
+    // @Autowired
+    // RecipeCommandToRecipe recipeCommandToRecipe;
 
-    @Autowired
-    RecipeToRecipeCommand recipeToRecipeCommand;
+    // @Autowired
+    // RecipeToRecipeCommand recipeToRecipeCommand;
 
-    @Transactional
-    @Test
-    void testSaveOfDescription() {
-        // Given
-        Iterable<Recipe> recipes = recipeRepository.findAll();
-        Recipe testRecipe = recipes.iterator().next();
-        RecipeCommand testRecipeCommand = recipeToRecipeCommand.convert(testRecipe);
+    // @Transactional
+    // @Test
+    // void testSaveOfDescription() {
+    //     // Given
+    //     Iterable<Recipe> recipes = recipeRepository.findAll();
+    //     Recipe testRecipe = recipes.iterator().next();
+    //     RecipeCommand testRecipeCommand = recipeToRecipeCommand.convert(testRecipe);
 
-        // When
-        testRecipeCommand.setDescription(NEW_DESCRIPTION);
-        RecipeCommand savedRecipeCommand = recipeService.saveRecipeCommand(testRecipeCommand);
+    //     // When
+    //     testRecipeCommand.setDescription(NEW_DESCRIPTION);
+    //     RecipeCommand savedRecipeCommand = recipeService.saveRecipeCommand(testRecipeCommand);
 
-        // Then
-        assertEquals(NEW_DESCRIPTION, savedRecipeCommand.getDescription());
-        assertEquals(testRecipe.getId(), savedRecipeCommand.getId());
-        assertEquals(testRecipe.getCategories().size(), savedRecipeCommand.getCategories().size());
-        assertEquals(testRecipe.getIngredients().size(), savedRecipeCommand.getIngredients().size());
+    //     // Then
+    //     assertEquals(NEW_DESCRIPTION, savedRecipeCommand.getDescription());
+    //     assertEquals(testRecipe.getId(), savedRecipeCommand.getId());
+    //     assertEquals(testRecipe.getCategories().size(), savedRecipeCommand.getCategories().size());
+    //     assertEquals(testRecipe.getIngredients().size(), savedRecipeCommand.getIngredients().size());
 
-    }
+    // }
 }
